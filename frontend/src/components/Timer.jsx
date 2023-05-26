@@ -48,6 +48,8 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 			.padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 	}
 
+	//when Pomodoro button clicked. Changes timer to Pomo and pauses
+	//if timer already pomo then resets and pauses
 	const onPomoClick = ()=>{
 		setTimerType('pomo')
 		setKey(prevKey => prevKey + 1)
@@ -56,6 +58,8 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 		}
 	}
 
+		//when Workout button clicked. Changes timer to Pomo and pauses
+	//if timer already workout then resets and pauses
 	const onWorkoutClick = ()=>{
 		setTimerType('break')
 		setKey(prevKey => prevKey + 1)
@@ -63,8 +67,9 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 			setStartBTN(false)
 		}
 	}
+	//props to allow progress bar to change colors relative to duration of timer
 	const colorDurations = [duration,duration*3/4,duration/2,0];
-	console.log(colorDurations)
+
   return (
     <div className = 'timer-wrapper'>
 				<div className = 'btn-timer-select'>
@@ -82,15 +87,15 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
         	  onComplete={()=>{
 							setStartBTN(false);
 							console.log(timerType)
-							if(timerType === 'pomo'){
-								setTimerType('break')
-							}else{
-								setTimerType('pomo')
-							}
-
+							// if(timerType === 'pomo'){//can clean up with terniary
+							// 	setTimerType('break')
+							// }else{
+							// 	setTimerType('pomo')
+							// }
+							setTimerType(timerType === 'pomo'?'break':'pomo')//when timer completes. Changes timerType to load next timer.
 							//onTimerType();
 							console.log('completed')
-							return { shouldRepeat: false, delay: 1 }
+							return { shouldRepeat: false, delay: 1 }//do I need this?
 							
 						}}
 					
