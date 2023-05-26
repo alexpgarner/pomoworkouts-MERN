@@ -47,15 +47,27 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 			.padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 	}
 
+	const onPomoClick = ()=>{
+		setTimerType('pomo')
+	}
+
+	const onWorkoutClick = ()=>{
+		setTimerType('break')
+	}
+	const colorDurations = [duration,duration*3/4,duration/2,0];
+	console.log(colorDurations)
   return (
     <div className = 'timer-wrapper'>
-				<div className = 'btn-timer-select'><Button className = 'btn-select' text = 'Pomodoro'/><Button className = 'btn-select' text = 'Workout/Break'/></div>
+				<div className = 'btn-timer-select'>
+					<Button className = 'btn-select' text = 'Pomodoro' onClick={onPomoClick}/>
+					<Button className = 'btn-select' text = 'Workout/Break' onClick={onWorkoutClick}/>
+				</div>
 
 				<CountdownCircleTimer
         	  isPlaying = {startBTN}
         	  duration={duration}
         	  colors={["#54f542", "#F7B801", "#A30000", "#A30000"]}
-        	  colorsTime={[{duration}, 6, 3, 0]}
+        	  colorsTime={colorDurations}
 						
         	  onComplete={()=>{
 							setStartBTN(false);

@@ -50,6 +50,8 @@ body {
 
 .value {
   font-size: 40px;
+  color: white;
+  font-weight: bold;
 }
 .header {
   display: flex;
