@@ -12,8 +12,8 @@ function App() {
   return (//jsx from here
     <div className="container">
       <Header className = "header"/>
-      {timerType === 'pomo' && <Timer timerType = {timerType} duration = {duration} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
-      {timerType === 'break' && <Timer timerType = {timerType} setTimerType = {setTimerType} duration = {10} onTimerType = {onTimerType}/> }
+      {timerType === 'pomo' && <Timer timerType = {timerType} duration = {25*60} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
+      {timerType === 'break' && <Timer timerType = {timerType} setTimerType = {setTimerType} duration = {5*60} onTimerType = {onTimerType}/> }
     </div>
   );
 }

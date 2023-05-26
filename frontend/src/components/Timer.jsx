@@ -7,6 +7,7 @@ import {useState,useEffect} from 'react'
 const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 
 	const [startBTN,setStartBTN] = useState(false)
+	const [key, setKey] = useState(0);
 	// const [timerType,setTimerType] = useState('pomo')
 	// let timerType = 'pomo';
 	// useEffect(() => {
@@ -49,10 +50,18 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 
 	const onPomoClick = ()=>{
 		setTimerType('pomo')
+		setKey(prevKey => prevKey + 1)
+		if(startBTN === true){
+			setStartBTN(false)
+		}
 	}
 
 	const onWorkoutClick = ()=>{
 		setTimerType('break')
+		setKey(prevKey => prevKey + 1)
+		if(startBTN === true){
+			setStartBTN(false)
+		}
 	}
 	const colorDurations = [duration,duration*3/4,duration/2,0];
 	console.log(colorDurations)
@@ -64,6 +73,7 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 				</div>
 
 				<CountdownCircleTimer
+						key = {key}
         	  isPlaying = {startBTN}
         	  duration={duration}
         	  colors={["#54f542", "#F7B801", "#A30000", "#A30000"]}
