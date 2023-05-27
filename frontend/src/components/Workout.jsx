@@ -28,7 +28,7 @@ const Workout =  ({breakDuration,timerType}) => {
 
     // get random item
     const item = arr[randomIndex];
-    arr.splice(randomIndex,1)
+    arr.splice(randomIndex,1)//removes workout so duplicates are added to workoutQue
     return item;
   }
   const getRandomWorkouts = ()=>{

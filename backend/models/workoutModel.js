@@ -5,12 +5,16 @@ const workoutSchema = mongoose.Schema({
         type: String,
         required :[true, 'Please add workout name']
     },
+    type: {
+        type: String,
+        required : [true, 'Please add workout type']
+    },
     targetMuscleMain: {
         type: String,
         required :[true, 'Please add main muscle group targeted']
     },
     description:{
-        type: String,
+        type: Array,
         required : [true, 'Please add workout descrition']
     },
     duration:{

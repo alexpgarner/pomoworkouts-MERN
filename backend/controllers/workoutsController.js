@@ -4,7 +4,7 @@ const Workout = require('../models/workoutModel')
 //@route /api/workouts
 //@access Public
 const getWorkouts = asyncHandler(async(req,res)=>{
-    const workouts = await Workout.find()
+    const workouts = await Workout.find({type: "exercise"})
     res.status(200).json(workouts)
 })
 

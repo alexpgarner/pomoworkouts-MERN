@@ -1,12 +1,13 @@
 export const Exercises = ({exercise}) => {
   return (
     <div className='exercises'>
-        <h3>
-          {exercise.name} 
-          {exercise.targetMuscleMain}
-          {exercise.duration}
-          {exercise.description}
-        </h3>
+        <ul>
+          <li>Name: {exercise.name} </li>
+					<li>type: {exercise.type}</li>
+          <li>Target Muscle: {exercise.targetMuscleMain}</li>
+          <li>Duration: {exercise.duration}min</li>
+          {exercise.description.map(element=><li key = {Math.floor(Math.random()*1000)}>{element}</li>)}
+        </ul>
     </div>
 	)
 }
