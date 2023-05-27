@@ -28,7 +28,7 @@ const Workout =  ({breakDuration,timerType}) => {
 
     // get random item
     const item = arr[randomIndex];
-
+    arr.splice(randomIndex,1)
     return item;
   }
   const getRandomWorkouts = ()=>{
@@ -41,7 +41,15 @@ const Workout =  ({breakDuration,timerType}) => {
       //alert('no workouts fit in your break time') 
     }else{
       while(timeLeft>0 && workoutsThatFit.length>0){
-        const randomWorkout = getRandomItem(workoutsThatFit)
+        let randomWorkout =[]
+        console.log(workoutsThatFit)
+        try{
+          randomWorkout = getRandomItem(workoutsThatFit)
+        }catch(err){
+          console.log('Not enough workouts to fill break time')
+          console.log(err)
+          break;
+        }
         timeLeft -= randomWorkout.duration;
         workoutQue.push(randomWorkout)
         workoutsThatFit = workoutsThatFit.filter((element)=>element.duration <= timeLeft)
@@ -56,7 +64,7 @@ const Workout =  ({breakDuration,timerType}) => {
     )
   
   }
-  return (hasLoaded ? getRandomWorkouts():<p>Loading......</p>  )
+  return (hasLoaded ? getRandomWorkouts():<p>Loading......</p>  )//needs hasLoaded state to wait for useEffect to fetch workouts
 }
 
 export default Workout

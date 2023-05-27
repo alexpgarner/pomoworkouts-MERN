@@ -1,4 +1,4 @@
-export const Exercises = ({key,exercise}) => {
+export const Exercises = ({exercise}) => {
   return (
     <div className='exercises'>
         <h3>
