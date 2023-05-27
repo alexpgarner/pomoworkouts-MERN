@@ -65,6 +65,7 @@ body {
 .btn-timer-select{
   /* margin: 30px auto;
   overflow: auto; */
+  margin: 30px;
   width:400px;
   height:100px;
   border: 1px solid steelblue;
