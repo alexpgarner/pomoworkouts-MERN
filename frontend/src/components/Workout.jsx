@@ -1,5 +1,6 @@
 import {useState,useEffect} from 'react'
 import Exercises from '../components/Exercises'
+
 const Workout =  ({breakDuration,timerType}) => {
   const [workouts,setWorkouts] = useState([])
   const [hasLoaded,setHasLoaded] = useState(false);
@@ -7,14 +8,15 @@ const Workout =  ({breakDuration,timerType}) => {
   useEffect(()=>{
     const getWorkouts = async ()=>{
       const workoutsFromServer = await fetchWorkout();
-      setWorkouts(workoutsFromServer[1])
-      setWarmups(workoutsFromServer[0])
-      setHasLoaded(true)
+      setWorkouts(workoutsFromServer[1])//index 1 of array from server is exercises
+      setWarmups(workoutsFromServer[0])//index 0 of array from server is warmups
+      setHasLoaded(true)//promises have come true. OK to run getRandomWorkouts to load Exercise components.
     }
     getWorkouts()
 
   },[])
 
+  //grab data from workouts api
   const fetchWorkout = async () =>{
     const res = await fetch('http://localhost:8000/api/workouts');
     const data = await res.json();
@@ -22,7 +24,7 @@ const Workout =  ({breakDuration,timerType}) => {
     return data;
   }
 
-
+  //grab a roundom item from array and then remove that item from the array
   function getRandomItem(arr) {
 
     // get random index value
@@ -33,14 +35,16 @@ const Workout =  ({breakDuration,timerType}) => {
     arr.splice(randomIndex,1)//removes workout so duplicates are added to workoutQue
     return item;
   }
+
+  //returns a list of warmups and exercises that fit in the break duration
   const getRandomWorkouts = ()=>{
-    let timeLeft = breakDuration-1;
+    let timeLeft = breakDuration-1;//warmups are 1 min. for now
     const workoutQue = [];
     console.log(timeLeft,workouts[0])
     let workoutsThatFit =  workouts.filter((element)=>element.duration <= timeLeft)
     if(workoutsThatFit.length === 0){
       console.log("no workouts fit")
-      //alert('no workouts fit in your break time') 
+      //alert('no workouts fit in your break time') ***DONT USE ALERTS THEY FREEZE THE TIMER AND CAUSE ISSUES?
     }else{
       while(timeLeft>0 && workoutsThatFit.length>0){
         let randomWorkout =[]
@@ -59,9 +63,7 @@ const Workout =  ({breakDuration,timerType}) => {
     }
     return (
       <>  <Exercises key = {warmups[0]._id} exercise = {warmups[0]}/>
-          {workoutQue.map((exercise)=>{
-              return <Exercises key = {exercise._id} exercise = {exercise}/>;})
-          }
+          {workoutQue.map((exercise)=>{return <Exercises key = {exercise._id} exercise = {exercise}/>;})}
       </>
     )
   
