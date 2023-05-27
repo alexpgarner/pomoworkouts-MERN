@@ -95,7 +95,7 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 							setTimerType(timerType === 'pomo'?'break':'pomo')//when timer completes. Changes timerType to load next timer.
 							//onTimerType();
 							console.log('completed')
-							return { shouldRepeat: false, delay: 1 }//do I need this?
+							// return { shouldRepeat: false, delay: 1 }//do I need this?
 							
 						}}
 					
