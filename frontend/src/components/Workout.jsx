@@ -3,10 +3,12 @@ import Exercises from '../components/Exercises'
 const Workout =  ({breakDuration,timerType}) => {
   const [workouts,setWorkouts] = useState([])
   const [hasLoaded,setHasLoaded] = useState(false);
+  const [warmups,setWarmups] = useState([])
   useEffect(()=>{
     const getWorkouts = async ()=>{
       const workoutsFromServer = await fetchWorkout();
-      setWorkouts(workoutsFromServer)
+      setWorkouts(workoutsFromServer[1])
+      setWarmups(workoutsFromServer[0])
       setHasLoaded(true)
     }
     getWorkouts()
@@ -32,7 +34,7 @@ const Workout =  ({breakDuration,timerType}) => {
     return item;
   }
   const getRandomWorkouts = ()=>{
-    let timeLeft = breakDuration;
+    let timeLeft = breakDuration-1;
     const workoutQue = [];
     console.log(timeLeft,workouts[0])
     let workoutsThatFit =  workouts.filter((element)=>element.duration <= timeLeft)
@@ -56,7 +58,7 @@ const Workout =  ({breakDuration,timerType}) => {
       }
     }
     return (
-      <>    
+      <>  <Exercises key = {warmups[0]._id} exercise = {warmups[0]}/>
           {workoutQue.map((exercise)=>{
               return <Exercises key = {exercise._id} exercise = {exercise}/>;})
           }

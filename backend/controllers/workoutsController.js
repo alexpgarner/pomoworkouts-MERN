@@ -5,7 +5,8 @@ const Workout = require('../models/workoutModel')
 //@access Public
 const getWorkouts = asyncHandler(async(req,res)=>{
     const workouts = await Workout.find({type: "exercise"})
-    res.status(200).json(workouts)
+    const warmups = await Workout.find({type: "warmup"})
+    res.status(200).json([warmups,workouts])
 })
 
 //@desc POST workouts
