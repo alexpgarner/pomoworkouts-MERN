@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended : false}))
 
 app.use('/api/workouts', require('./routes/workoutRoutes'))
 
+
 //overrides default error handler
 app.use(errorHandler)
 

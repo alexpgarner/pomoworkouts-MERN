@@ -45,7 +45,7 @@ const Workout =  ({breakDuration,timerType}) => {
     if(workoutsThatFit.length === 0){
       console.log("no workouts fit")
       //alert('no workouts fit in your break time') ***DONT USE ALERTS THEY FREEZE THE TIMER AND CAUSE ISSUES?
-    }else{
+    }else{//CLEAN THIS UP LATER
       while(timeLeft>0 && workoutsThatFit.length>0){
         let randomWorkout =[]
         console.log(workoutsThatFit)
@@ -68,6 +68,7 @@ const Workout =  ({breakDuration,timerType}) => {
     )
   
   }
+
   return (hasLoaded ? getRandomWorkouts():<p>Loading......</p>  )//needs hasLoaded state to wait for useEffect to fetch workouts
 }
 

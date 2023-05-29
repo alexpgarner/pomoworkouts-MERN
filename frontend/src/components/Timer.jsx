@@ -4,7 +4,7 @@ import StartStop from './StartStop';
 import Button from './Button'
 import {useState,useEffect} from 'react'
 
-const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
+const Timer = ({remainingTime, timerType,onTimerType,duration,setTimerType}) => {
 
 	const [startBTN,setStartBTN] = useState(false)
 	const [key, setKey] = useState(0);
@@ -78,6 +78,7 @@ const Timer = ({timerType,onTimerType,duration,setTimerType}) => {
 				</div>
 
 				<CountdownCircleTimer
+						
 						key = {key}
         	  isPlaying = {startBTN}
         	  duration={duration}
