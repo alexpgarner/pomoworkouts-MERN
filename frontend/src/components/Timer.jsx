@@ -4,7 +4,7 @@ import StartStop from './StartStop';
 import Button from './Button'
 import {useState,useEffect} from 'react'
 
-const Timer = ({onRemainingTime,timerType,onTimerType,duration,setTimerType}) => {
+const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
 	const [globalTimeTest,setGLobalTime] =useState(0)
 	const [startBTN,setStartBTN] = useState(false)
 	const [key, setKey] = useState(0);
@@ -57,17 +57,22 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration,setTimerType}) =>
 	//when Pomodoro button clicked. Changes timer to Pomo and pauses
 	//if timer already pomo then resets and pauses
 	const onPomoClick = ()=>{
-		setTimerType('pomo')
-		setKey(prevKey => prevKey + 1)
+		if(timerType=='break'){
+			onTimerType()
+		}
+		setKey(prevKey => prevKey + 1)//I forgot why
 		if(startBTN === true){
-			setStartBTN(false)
+			setStartBTN(false)//shouuld use a callback function
 		}
 	}
 
 		//when Workout button clicked. Changes timer to Pomo and pauses
 	//if timer already workout then resets and pauses
 	const onWorkoutClick = ()=>{
-		setTimerType('break')
+
+		if(timerType=='pomo'){
+			onTimerType()
+		}
 		setKey(prevKey => prevKey + 1)
 		if(startBTN === true){
 			setStartBTN(false)
