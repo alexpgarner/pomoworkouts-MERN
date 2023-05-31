@@ -3,24 +3,18 @@ import { CountdownCircleTimer,useCountdown } from 'react-countdown-circle-timer'
 import StartStop from './StartStop';
 import Button from './Button'
 import {useState,useEffect} from 'react'
-// import { on } from '../../../backend/models/workoutModel';
 
 const Timer = ({onRemainingTime,timerType,onTimerType,duration,setTimerType}) => {
 	const [globalTimeTest,setGLobalTime] =useState(0)
 	const [startBTN,setStartBTN] = useState(false)
 	const [key, setKey] = useState(0);
 
+	//updates parentRemainingtime when globalTimeTest state changes
 	useEffect(()=>{
 		onRemainingTime(globalTimeTest)
 	},[globalTimeTest]);
-	// const {remainingTime} = useCountdown({remaingingTime})
-	// const [timerType,setTimerType] = useState('pomo')
-	// let timerType = 'pomo';
-
-	// },[startBTN])
-	//when Start stop clicked
-
-	// setRemaingTimeParent(globalTimeTest)
+	
+	//call back for cicleTimer onUpdate to set a global variable to change parent states
 	const onGlobal = (time)=>{
     setGLobalTime(time)
   }
@@ -99,18 +93,11 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration,setTimerType}) =>
         	  onComplete={()=>{
 							setStartBTN(false);
 							console.log(timerType)
-							// if(timerType === 'pomo'){//can clean up with terniary
-							// 	setTimerType('break')
-							// }else{
-							// 	setTimerType('pomo')
-							// }
-							setTimerType(timerType === 'pomo'?'break':'pomo')//when timer completes. Changes timerType to load next timer.
-							//onTimerType();
+							//setTimerType(timerType === 'pomo'?'break':'pomo')//when timer completes. Changes timerType to load next timer.
+							onTimerType();
 							console.log('completed')
 							// return { shouldRepeat: false, delay: 1 }//do I need this?
-							
 						}}
-					
         	>
 					{renderTime}
 				</CountdownCircleTimer>

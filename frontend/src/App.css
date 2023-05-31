@@ -43,7 +43,20 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.exTitle{
+  font-size:larger;
+}
 
+.exercises{
+  padding:40px;
+  width: 700px;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+}
+.exercises li{
+  list-style: none;
+}
 .text {
   color: white;
 }
