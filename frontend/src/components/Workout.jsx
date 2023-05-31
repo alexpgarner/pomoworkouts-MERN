@@ -63,8 +63,8 @@ const Workout =  ({remainingTime,breakDuration,timerType}) => {
     }
     return (
       <>  
-          {remainingTime > (breakDuration-1)?<Exercises key = {warmups[0]._id} exercise = {warmups[0]}/>:
-          workoutQue.map((exercise)=>{return <Exercises key = {exercise._id} exercise = {exercise}/>;})}
+          {remainingTime > (breakDuration-1)?<Exercises index = {0} duration = {breakDuration} key = {warmups[0]._id} exercise = {warmups[0]}/>:
+          workoutQue.map((exercise,index)=>{return <Exercises index = {index} duration = {breakDuration} key = {exercise._id} exercise = {exercise}/>;})}
       </>
     )
   
