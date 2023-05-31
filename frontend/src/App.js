@@ -21,7 +21,7 @@ function App() {
       <h1>{remainingTimeParent}</h1>
       {timerType === 'pomo' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {5} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
       {timerType === 'break' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {5} onTimerType = {onTimerType}/> }
-      {timerType === 'break' && <Workout timerType = {timerType} breakDuration = {breakDuration}/>}
+      {timerType === 'break' && <Workout remainingTime = {remainingTimeParent} remainingtimerType = {timerType} breakDuration = {breakDuration}/>}
     </div>
   );
 }

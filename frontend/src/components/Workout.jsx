@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react'
 import Exercises from '../components/Exercises'
 
-const Workout =  ({breakDuration,timerType}) => {
+const Workout =  ({remainingTime,breakDuration,timerType}) => {
   const [workouts,setWorkouts] = useState([])
   const [hasLoaded,setHasLoaded] = useState(false);
   const [warmups,setWarmups] = useState([])
@@ -62,8 +62,9 @@ const Workout =  ({breakDuration,timerType}) => {
       }
     }
     return (
-      <>  <Exercises key = {warmups[0]._id} exercise = {warmups[0]}/>
-          {workoutQue.map((exercise)=>{return <Exercises key = {exercise._id} exercise = {exercise}/>;})}
+      <>  
+          {remainingTime > (breakDuration-1)?<Exercises key = {warmups[0]._id} exercise = {warmups[0]}/>:
+          workoutQue.map((exercise)=>{return <Exercises key = {exercise._id} exercise = {exercise}/>;})}
       </>
     )
   
