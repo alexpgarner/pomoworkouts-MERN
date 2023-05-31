@@ -8,15 +8,19 @@ function App() {
   const [timerType,setTimerType] = useState('pomo')
   const [focusDuration,setFocusDuration] = useState(25);
   const [breakDuration,setBreakDuration] = useState(5);
-  const [remainingTime,setRemaingTime] = useState(0)
+  const [remainingTimeParent,setRemainingTimeParent] = useState(0)
+  const onRemainingTime = (time)=>{
+    setRemainingTimeParent(time);
+  }
   const onTimerType=()=>{
     timerType === 'pomo'? setTimerType('break'):setTimerType('pomo')
   }
   return (//jsx from here
     <div className="container">
       <Header className = "header"/>
-      {timerType === 'pomo' && <Timer timerType = {timerType} duration = {5} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
-      {timerType === 'break' && <Timer remaingingTime = {remainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {5} onTimerType = {onTimerType}/> }
+      <h1>{remainingTimeParent}</h1>
+      {timerType === 'pomo' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {5} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
+      {timerType === 'break' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {5} onTimerType = {onTimerType}/> }
       {timerType === 'break' && <Workout timerType = {timerType} breakDuration = {breakDuration}/>}
     </div>
   );

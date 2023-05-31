@@ -1,32 +1,44 @@
 // import Form from 'react-bootstrap/Form';
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { CountdownCircleTimer,useCountdown } from 'react-countdown-circle-timer'
 import StartStop from './StartStop';
 import Button from './Button'
 import {useState,useEffect} from 'react'
+// import { on } from '../../../backend/models/workoutModel';
 
-const Timer = ({remainingTime, timerType,onTimerType,duration,setTimerType}) => {
-
+const Timer = ({onRemainingTime,timerType,onTimerType,duration,setTimerType}) => {
+	const [globalTimeTest,setGLobalTime] =useState(0)
 	const [startBTN,setStartBTN] = useState(false)
 	const [key, setKey] = useState(0);
+
+	useEffect(()=>{
+		onRemainingTime(globalTimeTest)
+	},[globalTimeTest]);
+	// const {remainingTime} = useCountdown({remaingingTime})
 	// const [timerType,setTimerType] = useState('pomo')
 	// let timerType = 'pomo';
-	// useEffect(() => {
-	// 	setStartBTN(false)
-		
+
 	// },[startBTN])
 	//when Start stop clicked
+
+	// setRemaingTimeParent(globalTimeTest)
+	const onGlobal = (time)=>{
+    setGLobalTime(time)
+  }
 
 	const onStartBtn = ()=>{
 		setStartBTN(!startBTN);
 	}
 
 	//renders time inside Countdown Circle
-	const renderTime = ({ remainingTime }) => {
+	const renderTime = ({remainingTime}) => {
+		
 		if (remainingTime === 0) {
-
 			return <div className="timer">Time to take a break</div>;
 		}
-		
+
+		// globalTimeTest = remainingTime;
+		// console.log(globalTimeTest)
+
 		
 		return (
 			<div className="timer">
@@ -76,15 +88,14 @@ const Timer = ({remainingTime, timerType,onTimerType,duration,setTimerType}) => 
 					<Button className = 'btn-select' text = 'Pomodoro' onClick={onPomoClick}/>
 					<Button className = 'btn-select' text = 'Workout/Break' onClick={onWorkoutClick}/>
 				</div>
-
+				<div>{globalTimeTest}</div>
 				<CountdownCircleTimer
-						
 						key = {key}
         	  isPlaying = {startBTN}
         	  duration={duration}
         	  colors={["#54f542", "#F7B801", "#A30000", "#A30000"]}
         	  colorsTime={colorDurations}
-						
+						onUpdate = {(remainingTime)=>onGlobal(remainingTime)}
         	  onComplete={()=>{
 							setStartBTN(false);
 							console.log(timerType)
@@ -102,7 +113,7 @@ const Timer = ({remainingTime, timerType,onTimerType,duration,setTimerType}) => 
 					
         	>
 					{renderTime}
-					</CountdownCircleTimer>
+				</CountdownCircleTimer>
 				<StartStop startBTN = {startBTN} onStartBtn = {onStartBtn}/>
     </div>
   )
