@@ -1,8 +1,6 @@
 import Popup from 'reactjs-popup'
-import {useState,useId,useEffect} from 'react'
+import {useEffect} from 'react'
 const Settings = ({onFocusDuration,focusDuration,onBreakDuration,breakDuration}) => {
-  const id = useId();
-  const [input, setInput] = useState(25);
 	useEffect(()=>{
 		console.log(input)
 	},[focusDuration])
