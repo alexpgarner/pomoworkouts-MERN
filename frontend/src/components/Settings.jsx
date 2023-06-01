@@ -1,9 +1,7 @@
 import Popup from 'reactjs-popup'
-import {useEffect} from 'react'
+
 const Settings = ({onFocusDuration,focusDuration,onBreakDuration,breakDuration}) => {
-	useEffect(()=>{
-		console.log(input)
-	},[focusDuration])
+
   return (
     <Popup
     trigger={<button className="button"> Settings </button>}
