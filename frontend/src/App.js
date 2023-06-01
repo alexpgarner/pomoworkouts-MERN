@@ -15,12 +15,20 @@ function App() {
   const onTimerType=()=>{
     timerType === 'pomo'? setTimerType('break'):setTimerType('pomo')
   }
+
+  const onFocusDuration = (time) =>{
+    setFocusDuration(time)
+  }
+
+  const onBreakDuration = (time) =>{
+    setBreakDuration(time)
+  }
   return (//jsx from here
     <div className="container">
-      <Header className = "header"/>
+      <Header onBreakDuration = {onBreakDuration} breakDuration={breakDuration} onFocusDuration = {onFocusDuration} focusDuration = {focusDuration} className = "header"/>
       <h1>{remainingTimeParent}</h1>
-      {timerType === 'pomo' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {5} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
-      {timerType === 'break' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {5} onTimerType = {onTimerType}/> }
+      {timerType === 'pomo' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {focusDuration} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
+      {timerType === 'break' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {breakDuration} onTimerType = {onTimerType}/> }
       {timerType === 'break' && <Workout remainingTime = {remainingTimeParent} remainingtimerType = {timerType} breakDuration = {breakDuration}/>}
     </div>
   );
