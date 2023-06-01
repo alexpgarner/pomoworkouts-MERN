@@ -54,6 +54,7 @@ function App() {
   const onBreakDuration = (time) =>{
     if(time>=1){
       setBreakDuration(time)
+      onWarmup()//if break duration changed in settings makes sure warmups popup first
       onKey()//resets remaingTime?
     }else{
       alert('duration must be a  greater than 1 min')
