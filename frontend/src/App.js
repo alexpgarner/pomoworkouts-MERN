@@ -7,29 +7,61 @@ function App() {
   //js here
   const [timerType,setTimerType] = useState('pomo')
   const [focusDuration,setFocusDuration] = useState(25);
-  const [breakDuration,setBreakDuration] = useState(5);
-  const [remainingTimeParent,setRemainingTimeParent] = useState(0)
+  const [breakDuration,setBreakDuration] = useState(20);
+  const [remainingTimeParent,setRemainingTimeParent] = useState(25)
+  const [warmUp,setWarmup] = useState(true)
+  const [startBTN,setStartBTN] = useState(false)
+  const [key, setKey] = useState(0);
+  useEffect(()=>{
+    console.log(timerType,remainingTimeParent,breakDuration)
+    if(timerType === 'break' && (remainingTimeParent <= (breakDuration-1))){
+      setWarmup(false)
+      console.log("warmup over")
+    }
+  },[remainingTimeParent])
+
+  const onKey=()=>{
+    setKey(prevKey => prevKey + 1)
+  }
+	const onStartBTN = ()=>{
+		setStartBTN(!startBTN);
+	}
   const onRemainingTime = (time)=>{
     setRemainingTimeParent(time);
+  }
+
+  const onWarmup=()=>{
+    setWarmup(true)
+  
   }
   const onTimerType=()=>{
     timerType === 'pomo'? setTimerType('break'):setTimerType('pomo')
   }
 
   const onFocusDuration = (time) =>{
-    setFocusDuration(time)
+    if(time>=1){
+      setFocusDuration(time)
+      onKey()
+    }else{
+      alert('duration must be a greater than 1 min')
+    }
   }
 
   const onBreakDuration = (time) =>{
-    setBreakDuration(time)
+    if(time>=1){
+      setBreakDuration(time)
+      onKey()
+    }else{
+      alert('duration must be a  greater than 1 min')
+    }
   }
   return (//jsx from here
     <div className="container">
-      <Header onBreakDuration = {onBreakDuration} breakDuration={breakDuration} onFocusDuration = {onFocusDuration} focusDuration = {focusDuration} className = "header"/>
+      <Header onStartBTN={onStartBTN} startBTN={startBTN} onBreakDuration = {onBreakDuration} breakDuration={breakDuration} onFocusDuration = {onFocusDuration} focusDuration = {focusDuration} className = "header"/>
       <h1>{remainingTimeParent}</h1>
-      {timerType === 'pomo' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {focusDuration} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
-      {timerType === 'break' && <Timer onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {breakDuration} onTimerType = {onTimerType}/> }
-      {timerType === 'break' && <Workout remainingTime = {remainingTimeParent} remainingtimerType = {timerType} breakDuration = {breakDuration}/>}
+      {timerType === 'pomo' && <Timer keyID={key} onKey ={onKey} onStartBTN={onStartBTN} startBTN ={startBTN} onWarmup = {onWarmup} onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {focusDuration} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
+      {timerType === 'break' && <Timer keyID={key} onKey ={onKey} onStartBTN={onStartBTN} startBTN ={startBTN} onWarmup = {onWarmup} onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {breakDuration} onTimerType = {onTimerType}/> }
+      {timerType === 'break' && <Workout warmUp ={warmUp} remainingtimerType = {timerType} breakDuration = {breakDuration}/>}
     </div>
   );
 }

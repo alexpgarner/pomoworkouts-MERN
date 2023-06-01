@@ -1,7 +1,8 @@
 import {useState,useEffect} from 'react'
 import Exercises from '../components/Exercises'
+import {memo} from 'react'
 
-const Workout =  ({remainingTime,breakDuration,timerType}) => {
+const Workout =  ({breakDuration,warmUp}) => {
   const [workouts,setWorkouts] = useState([])
   const [hasLoaded,setHasLoaded] = useState(false);
   const [warmups,setWarmups] = useState([])
@@ -13,7 +14,7 @@ const Workout =  ({remainingTime,breakDuration,timerType}) => {
       setHasLoaded(true)//promises have come true. OK to run getRandomWorkouts to load Exercise components.
     }
     getWorkouts()
-
+    
   },[])
 
   //grab data from workouts api
@@ -38,9 +39,10 @@ const Workout =  ({remainingTime,breakDuration,timerType}) => {
 
   //returns a list of warmups and exercises that fit in the break duration
   const getRandomWorkouts = ()=>{
+    console.log(hasLoaded)
     let timeLeft = breakDuration-1;//warmups are 1 min. for now
     const workoutQue = [];
-    console.log(timeLeft,workouts[0])
+    //console.log(timeLeft,workouts[0])
     let workoutsThatFit =  workouts.filter((element)=>element.duration <= timeLeft)
     if(workoutsThatFit.length === 0){
       console.log("no workouts fit")
@@ -48,7 +50,7 @@ const Workout =  ({remainingTime,breakDuration,timerType}) => {
     }else{//CLEAN THIS UP LATER
       while(timeLeft>0 && workoutsThatFit.length>0){
         let randomWorkout =[]
-        console.log(workoutsThatFit)
+        //console.log(workoutsThatFit)
         try{
           randomWorkout = getRandomItem(workoutsThatFit)
         }catch(err){
@@ -61,10 +63,12 @@ const Workout =  ({remainingTime,breakDuration,timerType}) => {
         workoutsThatFit = workoutsThatFit.filter((element)=>element.duration <= timeLeft)
       }
     }
+    //console.log(workoutQue)
     return (
       <>  
-          {remainingTime > (breakDuration-1)?<Exercises index = {0} duration = {breakDuration} key = {warmups[0]._id} exercise = {warmups[0]}/>:
-          workoutQue.map((exercise,index)=>{return <Exercises index = {index} duration = {breakDuration} key = {exercise._id} exercise = {exercise}/>;})}
+          <h2>Lets {warmUp?'Warmup':'Exervise'} for {warmUp ?1:breakDuration-1} {warmUp?"minute":"minutes"}!</h2>
+          {warmUp ? <Exercises index = {0} duration = {breakDuration} key = {warmups[0]._id} exercise = {warmups[0]}/>
+          : workoutQue.map((exercise)=>{return <Exercises  duration = {breakDuration} key = {exercise._id} exercise = {exercise}/>;})}
       </>
     )
   
@@ -73,4 +77,4 @@ const Workout =  ({remainingTime,breakDuration,timerType}) => {
   return (hasLoaded ? getRandomWorkouts():<p>Loading......</p>  )//needs hasLoaded state to wait for useEffect to fetch workouts
 }
 
-export default Workout
+export default memo(Workout)

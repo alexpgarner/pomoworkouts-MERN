@@ -4,10 +4,10 @@ import StartStop from './StartStop';
 import Button from './Button'
 import {useState,useEffect} from 'react'
 
-const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
+const Timer = ({onKey,keyID,onStartBTN,startBTN,onWarmup,onRemainingTime,timerType,onTimerType,duration}) => {
 	const [globalTimeTest,setGLobalTime] =useState(0)
-	const [startBTN,setStartBTN] = useState(false)
-	const [key, setKey] = useState(0);
+	
+	
 
 	//updates parentRemainingtime when globalTimeTest state changes
 	useEffect(()=>{
@@ -19,9 +19,7 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
     setGLobalTime(time)
   }
 
-	const onStartBtn = ()=>{
-		setStartBTN(!startBTN);
-	}
+
 
 	//renders time inside Countdown Circle
 	const renderTime = ({remainingTime}) => {
@@ -60,10 +58,12 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
 		if(timerType=='break'){
 			onTimerType()
 		}
-		setKey(prevKey => prevKey + 1)//I forgot why
+		onKey()//I forgot why...oh yeah resets timer
 		if(startBTN === true){
-			setStartBTN(false)//shouuld use a callback function
+			onStartBTN()
+			//setStartBTN(false)//shouuld use a callback function
 		}
+		onWarmup()
 	}
 
 		//when Workout button clicked. Changes timer to Pomo and pauses
@@ -73,10 +73,12 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
 		if(timerType=='pomo'){
 			onTimerType()
 		}
-		setKey(prevKey => prevKey + 1)
+		onKey()
 		if(startBTN === true){
-			setStartBTN(false)
+			onStartBTN()
+			//setStartBTN(false)
 		}
+		onWarmup()
 	}
 	//props to allow progress bar to change colors relative to duration of timer
 	const colorDurations = [duration,duration*3/4,duration/2,0];
@@ -89,14 +91,14 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
 				</div>
 				<div>{globalTimeTest}</div>
 				<CountdownCircleTimer
-						key = {key}
+						key = {keyID}
         	  isPlaying = {startBTN}
         	  duration={duration}
         	  colors={["#54f542", "#F7B801", "#A30000", "#A30000"]}
         	  colorsTime={colorDurations}
-						onUpdate = {(remainingTime)=>onGlobal(remainingTime)}
+						onUpdate = {(remainingTime)=>{onGlobal(remainingTime)}}
         	  onComplete={()=>{
-							setStartBTN(false);
+							onStartBTN();
 							console.log(timerType)
 							//setTimerType(timerType === 'pomo'?'break':'pomo')//when timer completes. Changes timerType to load next timer.
 							onTimerType();
@@ -106,7 +108,7 @@ const Timer = ({onRemainingTime,timerType,onTimerType,duration}) => {
         	>
 					{renderTime}
 				</CountdownCircleTimer>
-				<StartStop startBTN = {startBTN} onStartBtn = {onStartBtn}/>
+				<StartStop startBTN = {startBTN} onStartBTN = {onStartBTN}/>
     </div>
   )
 }

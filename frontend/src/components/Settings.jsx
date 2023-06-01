@@ -1,11 +1,13 @@
 import Popup from 'reactjs-popup'
 
-const Settings = ({onFocusDuration,focusDuration,onBreakDuration,breakDuration}) => {
+const Settings = ({startBTN,onStartBTN,onFocusDuration,focusDuration,onBreakDuration,breakDuration}) => {
+
 
   return (
     <Popup
-    trigger={<button className="button"> Settings </button>}
+    trigger={<button className="button" > Settings </button>}
     modal
+		onOpen = {()=>startBTN === true ? onStartBTN():0}
     position = 'left center'
   >
     {close => (
