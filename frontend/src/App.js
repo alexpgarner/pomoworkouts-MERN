@@ -20,16 +20,20 @@ function App() {
     }
   },[remainingTimeParent])
 
+  //resets timer needed it in parent so changing duration in settings resetts timer (remaining time will be duration-1 and cause an error if 1 min is enterned witout)
   const onKey=()=>{
     setKey(prevKey => prevKey + 1)
   }
 	const onStartBTN = ()=>{
 		setStartBTN(!startBTN);
 	}
+
+  //allows me to keep track of timer remaining time in parent component
   const onRemainingTime = (time)=>{
     setRemainingTimeParent(time);
   }
 
+  //Changes whether to show warmup or workouts
   const onWarmup=()=>{
     setWarmup(true)
   
@@ -41,7 +45,7 @@ function App() {
   const onFocusDuration = (time) =>{
     if(time>=1){
       setFocusDuration(time)
-      onKey()
+      onKey()//resets remainingTime
     }else{
       alert('duration must be a greater than 1 min')
     }
@@ -50,7 +54,7 @@ function App() {
   const onBreakDuration = (time) =>{
     if(time>=1){
       setBreakDuration(time)
-      onKey()
+      onKey()//resets remaingTime?
     }else{
       alert('duration must be a  greater than 1 min')
     }
