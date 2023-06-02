@@ -8,7 +8,6 @@ const Settings = ({startBTN,onStartBTN,onFocusDuration,focusDuration,onBreakDura
     trigger={<button className="button" > Settings </button>}
     modal
 		onOpen = {()=>startBTN === true ? onStartBTN():0}
-    position = 'left center'
   >
     {close => (
       <div className="modal">
