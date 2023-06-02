@@ -6,8 +6,8 @@ import {useState,useEffect} from 'react'
 function App() {
   //js here
   const [timerType,setTimerType] = useState('pomo')
-  const [focusDuration,setFocusDuration] = useState(25);
-  const [breakDuration,setBreakDuration] = useState(20);
+  const [focusDuration,setFocusDuration] = useState(Number(JSON.parse(localStorage.getItem('pomo')))||25);//if no local storage default 25
+  const [breakDuration,setBreakDuration] = useState(Number(JSON.parse(localStorage.getItem('break')))||5);//if no local storage defaul 5
   const [remainingTimeParent,setRemainingTimeParent] = useState(25)
   const [warmUp,setWarmup] = useState(true)
   const [startBTN,setStartBTN] = useState(false)
@@ -20,6 +20,11 @@ function App() {
     }
   },[remainingTimeParent])
 
+  //updates local storage when pomo or break times change in settings
+  useEffect(() => {
+    localStorage.setItem('pomo', JSON.stringify(focusDuration));
+    localStorage.setItem('break', JSON.stringify(breakDuration));
+  }, [focusDuration,breakDuration]);
   //resets timer needed it in parent so changing duration in settings resetts timer (remaining time will be duration-1 and cause an error if 1 min is enterned witout)
   const onKey=()=>{
     setKey(prevKey => prevKey + 1)

@@ -18,10 +18,10 @@ const Settings = ({startBTN,onStartBTN,onFocusDuration,focusDuration,onBreakDura
         <div className="header"> Settings </div>
         <div className="content">
             <label htmlFor="pomoTime">Pomo Time (min):</label>
-            <input id="pomoTime" value={focusDuration} onInput={e => onFocusDuration(e.target.value)}/>
+            <input id="pomoTime" value={focusDuration} onInput={e => onFocusDuration(Number(e.target.value))}/>
 
 						<label htmlFor="breakTime">Break Time (min):</label>
-            <input id="breakTime" value={breakDuration} onInput={e => onBreakDuration(e.target.value)}/>
+            <input id="breakTime" value={breakDuration} onInput={e => onBreakDuration(Number(e.target.value))}/>
 
         </div>
       </div>
