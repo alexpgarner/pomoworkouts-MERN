@@ -2,7 +2,7 @@ import Settings from '../components/Settings'
 const Header = ({onStartBTN,startBTN,onFocusDuration,focusDuration,onBreakDuration,breakDuration}) => {
   const style ={
     color: "white",
-    "font-weight": "bold",
+    fontWeight: "bold"
   }
   return (
     <div className = 'navbar'>
