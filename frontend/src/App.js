@@ -2,7 +2,8 @@ import './App.css';
 import Header from './components/Header';
 import Timer from './components/Timer';
 import Workout from './components/Workout';
-import Login from './components/Login';
+import Login from './screens/Login';
+import Profile from './screens/Profile';
 import {useState,useEffect} from 'react'
 import {Route,Routes,Router} from 'react-router-dom'
 
@@ -84,6 +85,7 @@ function App() {
                   }
         />
         <Route path ='/login' element={<Login/>}/>
+        <Route path ='/profile' element = {<Profile/>}/>
       </Routes>
     </div>
   );

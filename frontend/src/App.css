@@ -7,10 +7,12 @@
 }
 
 #root{
-  height:1000px;
+  height:auto;
+  background: rgb(255, 60, 0);
 }
 body {
   font-family: 'Poppins', sans-serif;
+  
 }
 
 
@@ -70,6 +72,7 @@ div.popup-content {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin: 0px auto !important;
 }
 .navbar{
   width:700px;
