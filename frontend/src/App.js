@@ -2,9 +2,10 @@ import './App.css';
 import Header from './components/Header';
 import Timer from './components/Timer';
 import Workout from './components/Workout';
-import Login from './components/Login'
+import Login from './components/Login';
 import {useState,useEffect} from 'react'
 import {Route,Routes,Router} from 'react-router-dom'
+
 function App() {
   //js here
   const [timerType,setTimerType] = useState('pomo')
