@@ -1,4 +1,6 @@
 import Settings from '../components/Settings'
+import {Link} from 'react-router-dom'
+
 const Header = ({onStartBTN,startBTN,onFocusDuration,focusDuration,onBreakDuration,breakDuration}) => {
   const style ={
     color: "white",
@@ -9,7 +11,7 @@ const Header = ({onStartBTN,startBTN,onFocusDuration,focusDuration,onBreakDurati
     <h1 style ={style}>PomoWorkouts</h1>
     <span>
       <Settings startBTN={startBTN} onStartBTN={onStartBTN} onFocusDuration = {onFocusDuration} focusDuration={focusDuration} onBreakDuration={onBreakDuration} breakDuration={breakDuration} />
-      <button>Log in</button>
+      <button><Link to = '/login'>Log in</Link></button>
     </span>
     </div>
   )

@@ -2,7 +2,9 @@ import './App.css';
 import Header from './components/Header';
 import Timer from './components/Timer';
 import Workout from './components/Workout';
+import Login from './components/Login'
 import {useState,useEffect} from 'react'
+import {Route,Routes,Router} from 'react-router-dom'
 function App() {
   //js here
   const [timerType,setTimerType] = useState('pomo')
@@ -69,9 +71,19 @@ function App() {
     <div className="container">
       <Header onStartBTN={onStartBTN} startBTN={startBTN} onBreakDuration = {onBreakDuration} breakDuration={breakDuration} onFocusDuration = {onFocusDuration} focusDuration = {focusDuration} className = "header"/>
       <h1>{remainingTimeParent}</h1>
-      {timerType === 'pomo' && <Timer keyID={key} onKey ={onKey} onStartBTN={onStartBTN} startBTN ={startBTN} onWarmup = {onWarmup} onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {focusDuration} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
-      {timerType === 'break' && <Timer keyID={key} onKey ={onKey} onStartBTN={onStartBTN} startBTN ={startBTN} onWarmup = {onWarmup} onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {breakDuration} onTimerType = {onTimerType}/> }
-      {timerType === 'break' && <Workout warmUp ={warmUp} remainingtimerType = {timerType} breakDuration = {breakDuration}/>}
+      <Routes>
+        <Route 
+          path = "/" 
+          element ={
+                    <>
+                    {timerType === 'pomo' && <Timer keyID={key} onKey ={onKey} onStartBTN={onStartBTN} startBTN ={startBTN} onWarmup = {onWarmup} onRemainingTime ={onRemainingTime} timerType = {timerType} duration = {focusDuration} setTimerType = {setTimerType} onTimerType = {onTimerType}/>}
+                    {timerType === 'break' && <Timer keyID={key} onKey ={onKey} onStartBTN={onStartBTN} startBTN ={startBTN} onWarmup = {onWarmup} onRemainingTime ={onRemainingTime} timerType = {timerType} setTimerType = {setTimerType} duration = {breakDuration} onTimerType = {onTimerType}/> }
+                    {timerType === 'break' && <Workout warmUp ={warmUp} remainingtimerType = {timerType} breakDuration = {breakDuration}/>}
+                    </>
+                  }
+        />
+        <Route path ='/login' element={<Login/>}/>
+      </Routes>
     </div>
   );
 }
