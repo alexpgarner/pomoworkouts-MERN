@@ -1,58 +1,59 @@
+import {Link,Navigate} from 'react-router-dom'
 import {
-  MDBBtn,
   MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
   MDBInput,
-  MDBIcon,
-  MDBCheckbox
+  MDBCheckbox,
+  MDBBtn,
+  MDBIcon
 }
 from 'mdb-react-ui-kit';
-
-const Login = () => {
+import {UserContext} from '../components/UserContext'
+import { useContext } from 'react'
+function Login() {
+  const user = useContext(UserContext);
+  if (user.loggedIn) {
+    return <Navigate replace to="/profile" />;
+  }else{
     return (
-      <MDBContainer fluid>
-  
-        <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-          <MDBCol col='12'>
-  
-            <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-              <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-  
-                <h2 className="fw-bold mb-2 text-center">Sign in</h2>
-                <p className="text-white-50 mb-3">Please enter your login and password!</p>
-  
-                <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg"/>
-                <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg"/>
-  
-                <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
-  
-                <MDBBtn size='lg'>
-                  Login
-                </MDBBtn>
-  
-                <hr className="my-4" />
-  
-                <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
-                  <MDBIcon fab icon="google" className="mx-2"/>
-                  Sign in with google
-                </MDBBtn>
-  
-                <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-                  <MDBIcon fab icon="facebook-f" className="mx-2"/>
-                  Sign in with facebook
-                </MDBBtn>
-  
-              </MDBCardBody>
-            </MDBCard>
-  
-          </MDBCol>
-        </MDBRow>
-  
+      <MDBContainer className="p-3 my-5 d-flex flex-column w-50" style = {{background: 'white'}}>
+        <form action={`${process.env.REACT_APP_SERVER_URL}/login`} method="POST">
+        <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' name = 'email'/>
+        <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' name = 'password'/>
+
+        <div className="d-flex justify-content-between mx-3 mb-4">
+          <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+          {/* <a href="!#">Forgot password?</a> */}
+        </div>
+
+        <MDBBtn type = 'submit' className="mb-4" style = {{background: 'blue',color: 'white'}}>Sign in</MDBBtn>
+        </form>
+        <div className="text-center">
+          <p>Not a member? <Link to='/register'>Register</Link></p>
+          <p>or sign up with:</p>
+
+          <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
+            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+              <MDBIcon fab icon='facebook-f' size="sm"/>
+            </MDBBtn>
+
+            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+              <MDBIcon fab icon='twitter' size="sm"/>
+            </MDBBtn>
+
+            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+              <MDBIcon fab icon='google' size="sm"/>
+            </MDBBtn>
+
+            <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
+              <MDBIcon fab icon='github' size="sm"/>
+            </MDBBtn>
+
+          </div>
+        </div>
+
       </MDBContainer>
     );
   }
-  
-  export default Login;
+}
+
+export default Login;

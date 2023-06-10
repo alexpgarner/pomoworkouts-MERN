@@ -10,7 +10,7 @@ const Settings = ({startBTN,onStartBTN,onFocusDuration,focusDuration,onBreakDura
 		onOpen = {()=>startBTN === true ? onStartBTN():0}
   >
     {close => (
-      <div className="modal">
+      <div className="modal-pop">
         <button className="close" onClick={close}>
           &times;
         </button>
