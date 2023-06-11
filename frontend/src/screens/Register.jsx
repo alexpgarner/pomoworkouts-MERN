@@ -1,9 +1,86 @@
-import React from 'react'
 
-const Register = () => {
+import {
+  MDBBtn,
+  MDBContainer,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBRow,
+  MDBCol,
+  MDBInput,
+  MDBCheckbox,
+  MDBIcon
+}
+from 'mdb-react-ui-kit';
+
+function Register() {
   return (
-    <div>Register</div>
-  )
+    <MDBContainer className='my-5' >
+      <MDBCard style = {{background: "rgb(255, 60, 0)"}}>
+
+        <MDBRow className='g-0 d-flex align-items-center'>
+
+          <MDBCol md='4'>
+            <MDBCardImage src='icons/tomatoe-workout.jpg' alt='phone' className='rounded-t-5 rounded-tr-lg-0' fluid />
+          </MDBCol>
+
+          <MDBCol col='8'>
+
+            <MDBCard className='my-5 cascading-right' style={{background: 'rgba(255,255,255,255)'}}>
+              <MDBCardBody className='p-5 shadow-5 text-center'>
+
+                <h2 className="fw-bold mb-5">Sign up now</h2>
+                <form action={`${process.env.REACT_APP_SERVER_URL}/register`} method="POST">
+                  <MDBRow>
+                    <MDBCol col='6'>
+                      <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text'/>
+                    </MDBCol>
+
+                    <MDBCol col='6'>
+                      <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text'/>
+                    </MDBCol>
+                  </MDBRow>
+
+                  <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email'/>
+                  <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password'/>
+
+                  <div className='d-flex justify-content-center mb-4'>
+                    <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
+                  </div>
+
+                  <MDBBtn className='w-100 mb-4' size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
+                </form>
+                <div className="text-center">
+
+                  <p>or sign up with:</p>
+
+                  <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='facebook-f' size="sm"/>
+                  </MDBBtn>
+
+                  <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='twitter' size="sm"/>
+                  </MDBBtn>
+
+                  <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='google' size="sm"/>
+                  </MDBBtn>
+
+                  <MDBBtn tag='a' color='none' className='mx-3' style={{ color: '#1266f1' }}>
+                    <MDBIcon fab icon='github' size="sm"/>
+                  </MDBBtn>
+
+                </div>
+
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+
+        </MDBRow>
+
+      </MDBCard>
+    </MDBContainer>
+  );
 }
 
-export default Register
+export default Register;

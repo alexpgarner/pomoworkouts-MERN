@@ -16,6 +16,7 @@ function Login() {
   }else{
     return (
       <MDBContainer className="p-3 my-5 d-flex flex-column w-50" style = {{background: 'white'}}>
+        <h2 className="fw-bold mb-5">Timer to Workout!</h2>
         <form action={`${process.env.REACT_APP_SERVER_URL}/login`} method="POST">
         <MDBInput wrapperClass='mb-4' label='Email address' id='form1' type='email' name = 'email'/>
         <MDBInput wrapperClass='mb-4' label='Password' id='form2' type='password' name = 'password'/>

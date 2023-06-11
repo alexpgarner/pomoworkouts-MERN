@@ -15,6 +15,18 @@ body {
   background: rgb(255, 60, 0) !important;
 }
 
+/* registration page */
+.rounded-t-5 {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+@media (max-width: 550px) {
+  .rounded-tr-lg-0 {
+    border-top-right-radius: 0.5rem;
+    border-bottom-left-radius: 0rem;
+  }
+}
 
 
 .modal-pop {
