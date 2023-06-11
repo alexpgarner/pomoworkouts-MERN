@@ -10,8 +10,8 @@ from 'mdb-react-ui-kit';
 import {UserContext} from '../components/UserContext'
 import { useContext } from 'react'
 function Login() {
-  const user = useContext(UserContext);
-  if (user.loggedIn) {
+  const userContext = useContext(UserContext);
+  if (userContext.user.loggedIn) {
     return <Navigate replace to="/profile" />;
   }else{
     return (

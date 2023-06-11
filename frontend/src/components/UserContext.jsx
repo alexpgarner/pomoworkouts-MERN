@@ -16,10 +16,10 @@ const Context = ({children}) => {
         console.log(data)
         setUser({...data})
       })
-  },[setUser])
-
+  },[])
+  
   return (
-    <UserContext.Provider value = {user}>{children}</UserContext.Provider>
+    <UserContext.Provider value = {{user,setUser}}>{children}</UserContext.Provider>
   )
 }
 

@@ -2,11 +2,11 @@ import {Navigate} from 'react-router-dom'
 import {UserContext} from '../components/UserContext'
 import { useContext } from 'react'
 const Profile = () => {
-  const user = useContext(UserContext);
-  console.log("you are logged in (PROFILE PAGE)",user.loggedIn)
-  if(user.loggedIn === undefined){
+  const userContext = useContext(UserContext);
+  console.log("you are logged in (PROFILE PAGE)",userContext.user.loggedIn)
+  if(userContext.user.loggedIn === undefined){
     return;
-  }if (!user.loggedIn) {
+  }if (!userContext.user.loggedIn) {
     return <Navigate replace to="/login" />;
   } else {
     return (

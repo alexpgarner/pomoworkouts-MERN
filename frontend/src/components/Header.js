@@ -7,14 +7,22 @@ const Header = ({onStartBTN,startBTN,onFocusDuration,focusDuration,onBreakDurati
     color: "white",
     fontWeight: "bold"
   }
-  const user = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const logOut = async(e)=>{
+    e.preventDefault();
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/logout`,{method: 'GET', credentials: 'include'})
+    const data = await res.json();
+    
+    userContext.setUser(data)
+    console.log(data,userContext.user)
+  }
   return (
     <div className = 'navbar'>
     <h1 style ={style}><Link to='/' style ={{textDecoration: "none",color: 'white'}}>PomoWorkouts</Link></h1>
     <span>
-      {user?.loggedIn&&<button><Link to = '/profile'>Profile</Link></button>}
+      {userContext.user?.loggedIn&&<button><Link to = '/profile'>Profile</Link></button>}
       <Settings startBTN={startBTN} onStartBTN={onStartBTN} onFocusDuration = {onFocusDuration} focusDuration={focusDuration} onBreakDuration={onBreakDuration} breakDuration={breakDuration} />
-      {user?.loggedIn === false ? <button><Link to = '/login'>Log in</Link></button> : <button><Link to = '/login'>Log out</Link></button>}
+      {userContext.user?.loggedIn === false ? <button><Link to = '/login'>Log in</Link></button> : <button onClick = {logOut}><Link to = '/'>Log out</Link></button>}
     </span>
     </div>
   )
