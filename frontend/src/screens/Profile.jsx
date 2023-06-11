@@ -4,7 +4,9 @@ import { useContext } from 'react'
 const Profile = () => {
   const user = useContext(UserContext);
   console.log("you are logged in (PROFILE PAGE)",user.loggedIn)
-  if (!user.loggedIn) {
+  if(user.loggedIn === undefined){
+    return;
+  }if (!user.loggedIn) {
     return <Navigate replace to="/login" />;
   } else {
     return (

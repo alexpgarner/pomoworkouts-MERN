@@ -58,18 +58,18 @@ exports.logout = (req, res) => {
     if (err)
       console.log("Error : Failed to destroy the session during logout.", err);
     req.user = null;
-    res.redirect("/");
+    res.redirect(`${process.env.CLIENT_URL}`);
   });
 };
 
-exports.getSignup = (req, res) => {
-  if (req.user) {
-    return res.redirect("/profile");
-  }
-  res.render("signup", {
-    title: "Create Account",
-  });
-};
+// exports.getSignup = (req, res) => {
+//   if (req.user) {
+//     return res.redirect(`${process.env.CLIENT_URL}/profile`);
+//   }
+//   res.render("signup", {
+//     title: "Create Account",
+//   });
+// };
 exports.postSignup = (req, res, next) => {
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
