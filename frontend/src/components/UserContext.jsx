@@ -6,6 +6,7 @@ export const UserContext = createContext();
 const Context = ({children}) => {
   const [user,setUser] = useState({loggedIn: false})
   useEffect(()=>{
+    console.log('Context Rendered')
     // console.log('use effect context ran',`Fetching from ${process.env.REACT_APP_SERVER_URL}/profile`,'loggin:',user.loggedIn)
     fetch(`${process.env.REACT_APP_SERVER_URL}/profile`, { credentials: 'include'})
       .then(res=>{
@@ -15,7 +16,7 @@ const Context = ({children}) => {
         console.log(data)
         setUser({...data})
       })
-  })
+  },[setUser])
 
   return (
     <UserContext.Provider value = {user}>{children}</UserContext.Provider>
