@@ -12,8 +12,28 @@ import {
   MDBIcon
 }
 from 'mdb-react-ui-kit';
+import {useState} from 'react'
+
 
 function Register() {
+  const [valErrors,setValErrors]=useState([]);
+  const onSubmit = async (e) =>{
+    e.preventDefault();
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/register`,
+                              {
+                                method: 'post',
+                                body: JSON.stringify(
+                                      {
+                                      firstName : e.target.elements.firstName,
+                                      lastName : e.target.elements.lastName,
+                                      userName : e.target.elements.userName,
+                                      email : e.target.elements.email
+                                      }),
+                              })
+    const validationErrors = await res.json();
+    setValErrors(validationErrors)
+    console.log(validationErrors)
+  }
   return (
     <MDBContainer className='my-5' >
       <MDBCard style = {{background: "rgb(255, 60, 0)"}}>
@@ -48,7 +68,7 @@ function Register() {
                     <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
                   </div>
 
-                  <MDBBtn className='w-100 mb-4' type = 'submit' size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
+                  <MDBBtn className='w-100 mb-4' type = 'submit' onSubmit = {onSubmit}size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
                 </form>
                 <div className="text-center">
 

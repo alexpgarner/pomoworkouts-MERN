@@ -88,9 +88,10 @@ exports.postSignup = (req, res, next) => {
     validationErrors.push({ msg: "Passwords do not match" });
 
   if (validationErrors.length) {
-    req.flash("errors", validationErrors);
-    
+    // req.flash("errors", validationErrors);
+    return res.send({validationErrors}); //instead of flashing message try returning errors with response
     // return res.redirect(`${process.env.CLIENT_URL}/register`);
+    
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
