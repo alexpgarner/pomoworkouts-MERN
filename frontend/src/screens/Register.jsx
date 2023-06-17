@@ -37,9 +37,10 @@ function Register() {
                                       }),
                               })
     const validationErrors = await res.json();
-    console.log([...validationErrors])
+    console.log(validationErrors,typeof validationErrors,validationErrors.validationErrors[0])      
+    console.log(...validationErrors.validationErrors)          
     // setValidationErrors(prev => [...prev, ...invalidValues])
-    //setValErrors(prev => [...prev, ...validationErrors])
+    setValErrors(prev => [...prev, ...validationErrors.validationErrors])
     
     console.log(res.status, valErrors)
     // console.log('PROMISE?')
@@ -80,7 +81,7 @@ function Register() {
                   <div className='d-flex justify-content-center mb-4'>
                     <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
                     {valErrors.length && valErrors.map((error)=>{
-                      return <span>{error}</span>
+                      return <span>{error.msg}</span>
                     })}
                   </div>
 
