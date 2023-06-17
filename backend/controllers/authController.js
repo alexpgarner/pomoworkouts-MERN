@@ -76,25 +76,34 @@ exports.logout = (req, res) => {
 //     title: "Create Account",
 //   });
 // };
-exports.postSignup = (req, res, next) => {
+exports.postSignup = async (req, res, next) => {
   const validationErrors = [];
-  if (!validator.isEmail(req.body.email))
+  console.log(req.body,'Email')
+  if (!validator.isEmail(req.body.email)){
     validationErrors.push({ msg: "Please enter a valid email address." });
-  if (!validator.isLength(req.body.password, { min: 8 }))
+    console.log(validationErrors,'Please enter email')
+  }
+  console.log('here')
+  if (!validator.isLength(req.body.password, { min: 8 })){
     validationErrors.push({
       msg: "Password must be at least 8 characters long",
     });
-  if (req.body.password !== req.body.confirmPassword)
+    console.log(validationErrors,'Please enter password')
+  }
+  console.log('here2')
+  if (req.body.password !== req.body.confirmPassword){
     validationErrors.push({ msg: "Passwords do not match" });
-
+  }
   if (validationErrors.length) {
     // req.flash("errors", validationErrors);
     //res.redirect(`${process.env.CLIENT_URL}/register`)
-    return res.status(200).json({validationErrors}); //instead of flashing message try returning errors with response
+    console.log('Errors',validationErrors)
+    return res.json({validationErrors}); //instead of flashing message try returning errors with response
     // return res.redirect(`${process.env.CLIENT_URL}/register`)
     // return res.redirect(`${process.env.CLIENT_URL}/register`);
     
   }
+  console.log("postSIgnup",validationErrors)
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
   });

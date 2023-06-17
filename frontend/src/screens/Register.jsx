@@ -19,6 +19,7 @@ function Register() {
   const [valErrors,setValErrors]=useState([]);
   const onSubmit = async (e) =>{
     e.preventDefault();
+    //console.log('click',e.target.elements.firstName.value,e.target.elements.lastName.value, e.target.elements.email.value )
     const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/register`,
                               {
                                 method: 'POST',
@@ -28,17 +29,21 @@ function Register() {
                                 },
                                 body: JSON.stringify(
                                       {
-                                      firstName : e.target.elements.firstName,
-                                      lastName : e.target.elements.lastName,
-                                      userName : e.target.elements.userName,
-                                      email : e.target.elements.email
+                                      firstName : e.target.elements.firstName.value,
+                                      lastName : e.target.elements.lastName.value,
+                                      userName : e.target.elements.userName.value,
+                                      password: e.target.elements.password.value,
+                                      email : e.target.elements.email.value
                                       }),
                               })
     const validationErrors = await res.json();
-    setValErrors(validationErrors)
-    console.log(res.status)
-    console.log('PROMISE?')
-    console.log("HELLO",validationErrors)
+    console.log([...validationErrors])
+    // setValidationErrors(prev => [...prev, ...invalidValues])
+    //setValErrors(prev => [...prev, ...validationErrors])
+    
+    console.log(res.status, valErrors)
+    // console.log('PROMISE?')
+    // console.log("HELLO",validationErrors)
     // return validationErrors
   }
   return (
@@ -58,22 +63,25 @@ function Register() {
 
                 <h2 className="fw-bold mb-5">Sign up now</h2>
                 {/* <form action={`${process.env.REACT_APP_SERVER_URL}/register`} method="POST"> */}
-                <form type = 'submit' handlesubmit = {onSubmit}>
+                <form type = 'submit' onSubmit = {onSubmit}>
                   <MDBRow>
                     <MDBCol col='6'>
-                      <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text' name = 'firstName'/>
+                      <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text' name = 'firstName' value=''/>
                     </MDBCol>
 
                     <MDBCol col='6'>
-                      <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text' name = 'lastName'/>
+                      <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text' name = 'lastName'value=''/>
                     </MDBCol>
                   </MDBRow>
-                  <MDBInput wrapperClass='mb-4' label='User Name' id='form3' type='text' name = 'userName'/>
-                  <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' name = 'email'/>
-                  <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' name = 'password'/>
-                  <MDBInput wrapperClass='mb-4' label='Confirm Password' id='form4' type='password' name = 'confirmPassword'/>
+                  <MDBInput wrapperClass='mb-4' label='User Name' id='form3' type='text' name = 'userName'value=''/>
+                  <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' name = 'email' value=''/>
+                  <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' name = 'password' value=''/>
+                  <MDBInput wrapperClass='mb-4' label='Confirm Password' id='form4' type='password' name = 'confirmPassword'value=''/>
                   <div className='d-flex justify-content-center mb-4'>
                     <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
+                    {valErrors.length && valErrors.map((error)=>{
+                      return <span>{error}</span>
+                    })}
                   </div>
 
                   <MDBBtn className='w-100 mb-4' type = 'submit'  size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
