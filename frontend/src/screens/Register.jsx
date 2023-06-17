@@ -17,6 +17,11 @@ import {useState} from 'react'
 
 function Register() {
   const [valErrors,setValErrors]=useState([]);
+  const [key, setKey] = useState(0);
+
+  const onKey=()=>{
+    setKey(prevKey => prevKey + 1)
+  }
   const onSubmit = async (e) =>{
     e.preventDefault();
     //console.log('click',e.target.elements.firstName.value,e.target.elements.lastName.value, e.target.elements.email.value )
@@ -40,7 +45,7 @@ function Register() {
     console.log(validationErrors,typeof validationErrors,validationErrors.validationErrors[0])      
     console.log(...validationErrors.validationErrors)          
     // setValidationErrors(prev => [...prev, ...invalidValues])
-    setValErrors(prev => [...prev, ...validationErrors.validationErrors])
+    setValErrors([...validationErrors.validationErrors])
     
     console.log(res.status, valErrors)
     // console.log('PROMISE?')
@@ -80,9 +85,12 @@ function Register() {
                   <MDBInput wrapperClass='mb-4' label='Confirm Password' id='form4' type='password' name = 'confirmPassword'value=''/>
                   <div className='d-flex justify-content-center mb-4'>
                     <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
+
+                  </div>
+                  <div className='d-flex justify-content-center mb-4'>
                     {valErrors.length && valErrors.map((error)=>{
-                      return <span>{error.msg}</span>
-                    })}
+                        return <span key = {Math.floor(Math.random()*1000)}>{error.msg}</span>
+                      })}
                   </div>
 
                   <MDBBtn className='w-100 mb-4' type = 'submit'  size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
