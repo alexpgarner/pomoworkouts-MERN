@@ -21,7 +21,11 @@ function Register() {
     e.preventDefault();
     const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/register`,
                               {
-                                method: 'post',
+                                method: 'POST',
+                                mode: 'cors',
+                                headers: {
+                                  "Content-Type": "application/json",
+                                },
                                 body: JSON.stringify(
                                       {
                                       firstName : e.target.elements.firstName,
@@ -32,7 +36,10 @@ function Register() {
                               })
     const validationErrors = await res.json();
     setValErrors(validationErrors)
-    console.log(validationErrors)
+    console.log(res.status)
+    console.log('PROMISE?')
+    console.log("HELLO",validationErrors)
+    // return validationErrors
   }
   return (
     <MDBContainer className='my-5' >
@@ -50,7 +57,8 @@ function Register() {
               <MDBCardBody className='p-5 shadow-5 text-center'>
 
                 <h2 className="fw-bold mb-5">Sign up now</h2>
-                <form action={`${process.env.REACT_APP_SERVER_URL}/register`} method="POST">
+                {/* <form action={`${process.env.REACT_APP_SERVER_URL}/register`} method="POST"> */}
+                <form type = 'submit' handlesubmit = {onSubmit}>
                   <MDBRow>
                     <MDBCol col='6'>
                       <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text' name = 'firstName'/>
@@ -68,7 +76,7 @@ function Register() {
                     <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
                   </div>
 
-                  <MDBBtn className='w-100 mb-4' type = 'submit' onSubmit = {onSubmit}size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
+                  <MDBBtn className='w-100 mb-4' type = 'submit'  size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
                 </form>
                 <div className="text-center">
 

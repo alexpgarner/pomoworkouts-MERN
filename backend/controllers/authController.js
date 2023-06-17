@@ -89,7 +89,9 @@ exports.postSignup = (req, res, next) => {
 
   if (validationErrors.length) {
     // req.flash("errors", validationErrors);
-    return res.send({validationErrors}); //instead of flashing message try returning errors with response
+    //res.redirect(`${process.env.CLIENT_URL}/register`)
+    return res.status(200).json({validationErrors}); //instead of flashing message try returning errors with response
+    // return res.redirect(`${process.env.CLIENT_URL}/register`)
     // return res.redirect(`${process.env.CLIENT_URL}/register`);
     
   }
