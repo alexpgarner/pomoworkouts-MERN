@@ -12,7 +12,7 @@ import {
   MDBIcon
 }
 from 'mdb-react-ui-kit';
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 import {UserContext} from '../components/UserContext'
 import { useContext } from 'react'
 import {Link,Navigate} from 'react-router-dom'
@@ -29,6 +29,12 @@ function Register() {
   const [confirmPassword,setConfirmPassword] = useState('')
   const [userName,setUserName] = useState('')
 
+  useEffect(()=>{
+    console.log(userContext.user.loggedIn)
+    if(valErrors[0]==='Logged In'){
+      userContext.setUser({loggedIn: true})
+    }
+  },[valErrors])
   if (userContext.user.loggedIn) {
     return <Navigate replace to="/profile" />;
   }else{
