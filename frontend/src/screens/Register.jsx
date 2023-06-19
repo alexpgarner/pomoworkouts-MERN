@@ -13,12 +13,25 @@ import {
 }
 from 'mdb-react-ui-kit';
 import {useState} from 'react'
-
-
+import {UserContext} from '../components/UserContext'
+import { useContext } from 'react'
+import {Link,Navigate} from 'react-router-dom'
 function Register() {
+
+  const userContext = useContext(UserContext);
+
   const [valErrors,setValErrors]=useState([]);
   const [key, setKey] = useState(0);
+  const [firstName,setFirstName] = useState('')
+  const [lastName,setLastName] = useState('')
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [confirmPassword,setConfirmPassword] = useState('')
+  const [userName,setUserName] = useState('')
 
+  if (userContext.user.loggedIn) {
+    return <Navigate replace to="/profile" />;
+  }else{
   const onKey=()=>{
     setKey(prevKey => prevKey + 1)
   }
@@ -38,20 +51,50 @@ function Register() {
                                       lastName : e.target.elements.lastName.value,
                                       userName : e.target.elements.userName.value,
                                       password: e.target.elements.password.value,
+                                      confirmPassword: e.target.elements.confirmPassword.value,
                                       email : e.target.elements.email.value
                                       }),
                               })
-    const validationErrors = await res.json();
-    console.log(validationErrors,typeof validationErrors,validationErrors.validationErrors[0])      
-    console.log(...validationErrors.validationErrors)          
+    try{                    
+      const validationErrors = await res.json();
+      setValErrors([...validationErrors])
+      console.log(valErrors,typeof valErrors)
+      console.log(res.status, valErrors)    
+      console.log(validationErrors)  
+    }catch(err){
+      console.log(err)
+      console.log(res)
+    }
+   
     // setValidationErrors(prev => [...prev, ...invalidValues])
-    setValErrors([...validationErrors.validationErrors])
-    
-    console.log(res.status, valErrors)
-    // console.log('PROMISE?')
-    // console.log("HELLO",validationErrors)
-    // return validationErrors
+  
   }
+  const onInput = (e)=>{
+    switch(e.target.name){
+      case 'firstName':
+        setFirstName(e.target.value);
+        break;
+      case 'lastName':
+        setLastName(e.target.value);
+        break;
+      case 'userName':
+        setUserName(e.target.value);
+        break;
+      case 'email':
+        setEmail(e.target.value);
+        break;
+      case 'password':
+        setPassword(e.target.value);
+        break;
+      case 'confirmPassword':
+        setConfirmPassword(e.target.value);
+        break;
+      default:
+        break;
+    } 
+  }
+
+
   return (
     <MDBContainer className='my-5' >
       <MDBCard style = {{background: "rgb(255, 60, 0)"}}>
@@ -72,25 +115,25 @@ function Register() {
                 <form type = 'submit' onSubmit = {onSubmit}>
                   <MDBRow>
                     <MDBCol col='6'>
-                      <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text' name = 'firstName' value=''/>
+                      <MDBInput wrapperClass='mb-4' label='First name' id='form1' type='text' onChange = {onInput} name = 'firstName' value={firstName}/>
                     </MDBCol>
 
                     <MDBCol col='6'>
-                      <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text' name = 'lastName'value=''/>
+                      <MDBInput wrapperClass='mb-4' label='Last name' id='form2' type='text' onChange = {onInput} name = 'lastName'value={lastName}/>
                     </MDBCol>
                   </MDBRow>
-                  <MDBInput wrapperClass='mb-4' label='User Name' id='form3' type='text' name = 'userName'value=''/>
-                  <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' name = 'email' value=''/>
-                  <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' name = 'password' value=''/>
-                  <MDBInput wrapperClass='mb-4' label='Confirm Password' id='form4' type='password' name = 'confirmPassword'value=''/>
+                  <MDBInput wrapperClass='mb-4' label='User Name' id='form3' type='text' onChange = {onInput} name = 'userName'value={userName}/>
+                  <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' onChange = {onInput} name = 'email' value={email}/>
+                  <MDBInput wrapperClass='mb-4' label='Password' id='form4' type='password' onChange = {onInput} name = 'password' value={password}/>
+                  <MDBInput wrapperClass='mb-4' label='Confirm Password' id='form4' type='password' onChange = {onInput} name = 'confirmPassword'value={confirmPassword}/>
                   <div className='d-flex justify-content-center mb-4'>
                     <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Subscribe to our newsletter' />
 
                   </div>
-                  <div className='d-flex justify-content-center mb-4'>
-                    {valErrors.length && valErrors.map((error)=>{
-                        return <span key = {Math.floor(Math.random()*1000)}>{error.msg}</span>
-                      })}
+                  <div className='d-flex justify-content-start flex-column mb-4'>
+                    {valErrors.length ? valErrors.map((error)=>{
+                        return <span key = {Math.floor(Math.random()*1000)} style = {{color : 'red'}}>{error}</span>
+                      }):<></>}
                   </div>
 
                   <MDBBtn className='w-100 mb-4' type = 'submit'  size='md' style = {{background: 'blue',color: 'white'}}>sign up</MDBBtn>
@@ -127,5 +170,5 @@ function Register() {
     </MDBContainer>
   );
 }
-
+}
 export default Register;
