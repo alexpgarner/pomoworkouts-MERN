@@ -138,8 +138,8 @@ exports.postSignup = async (req, res, next) => {
           }
           console.log(user,req.session,"logged in and registered")
           // return res.json(["Logged In"])
-          res.redirect(`/profile`);
-          //res.redirect(`${process.env.CLIENT_URL}/profile`);
+          // res.redirect(`/profile`);
+          res.redirect(`${process.env.CLIENT_URL}/profile`);
         });
         // passport.authenticate("local", (err, user, info) => {
         //   if (err) {

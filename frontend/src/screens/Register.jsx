@@ -44,6 +44,8 @@ function Register() {
   const onSubmit = async (e) =>{
     e.preventDefault();
     //console.log('click',e.target.elements.firstName.value,e.target.elements.lastName.value, e.target.elements.email.value )
+
+    //NEED crendetials: "include" for cookies to be passed to and from browser
     const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/register`,
                               {
                                 method: 'POST',
