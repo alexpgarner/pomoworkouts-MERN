@@ -48,8 +48,11 @@ function Register() {
                               {
                                 method: 'POST',
                                 mode: 'cors',
+                                redirect: "follow",
+                                credentials: 'include',
                                 headers: {
                                   "Content-Type": "application/json",
+                                  "accept": "application/json",
                                 },
                                 body: JSON.stringify(
                                       {
@@ -70,6 +73,7 @@ function Register() {
     }catch(err){
       console.log(err)
       console.log(res)
+      window.location.replace("/Profile")
     }
    
     // setValidationErrors(prev => [...prev, ...invalidValues])

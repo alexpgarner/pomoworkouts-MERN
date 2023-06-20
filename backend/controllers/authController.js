@@ -42,7 +42,7 @@ exports.postLogin = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      console.log('logged IN')
+      console.log('logged IN',user)
       req.flash("success", { msg: "Success! You are logged in." });
       res.redirect(`${process.env.CLIENT_URL}/profile`);
       // res.redirect(req.session.returnTo || `${process.env.CLIENT_URL}/profile`);
@@ -136,10 +136,31 @@ exports.postSignup = async (req, res, next) => {
           if (err) {
             return next(err);
           }
-          console.log("logged in")
-          return res.json(["Logged In"])
+          console.log(user,req.session,"logged in and registered")
+          // return res.json(["Logged In"])
+          res.redirect(`/profile`);
           //res.redirect(`${process.env.CLIENT_URL}/profile`);
         });
+        // passport.authenticate("local", (err, user, info) => {
+        //   if (err) {
+        //     return next(err);
+        //   }
+        //   if (!user) {
+        //     console.log('ERROR LOGIN')
+        //     req.flash("errors", info);
+        //     return res.redirect(`${process.env.CLIENT_URL}/login`);
+        //   }
+        //   req.logIn(user, (err) => {
+        //     if (err) {
+        //       return next(err);
+        //     }
+        //     console.log('logged IN and registered')
+        //     req.flash("success", { msg: "Success! You are logged in." });
+        //     res.redirect(`${process.env.CLIENT_URL}/profile`);
+        //     // res.redirect(req.session.returnTo || `${process.env.CLIENT_URL}/profile`);
+        //     // res.redirect(`${process.env.CLIENT_URL}/profile`);
+        //   });
+        // })(req, res, next);
       });
     }
   );

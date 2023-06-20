@@ -16,7 +16,7 @@ module.exports = {
       } else {
         // return res.json();
         // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
-        res.redirect(`${process.env.CLIENT_URL}`);
+        // res.redirect(`${process.env.CLIENT_URL}`);
       }
     },
     // ensureGuest: function (req, res, next) {
