@@ -42,7 +42,7 @@ exports.postLogin = (req, res, next) => {
       if (err) {
         return next(err);
       }
-      console.log('logged IN',user)
+      console.log('logged IN',user,res.getHeaders())
       req.flash("success", { msg: "Success! You are logged in." });
       res.redirect(`${process.env.CLIENT_URL}/profile`);
       // res.redirect(req.session.returnTo || `${process.env.CLIENT_URL}/profile`);
@@ -136,10 +136,10 @@ exports.postSignup = async (req, res, next) => {
           if (err) {
             return next(err);
           }
-          console.log(user,req.session,"logged in and registered")
-          // return res.json(["Logged In"])
+          console.log(user,req.session,res.getHeaders(),"logged in and registered")
+          res.json(user)
           // res.redirect(`/profile`);
-          res.redirect(`${process.env.CLIENT_URL}/profile`);
+          //res.redirect(`${process.env.CLIENT_URL}/profile`);
         });
         // passport.authenticate("local", (err, user, info) => {
         //   if (err) {

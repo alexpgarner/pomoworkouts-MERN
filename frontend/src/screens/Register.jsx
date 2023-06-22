@@ -54,7 +54,8 @@ function Register() {
                                 credentials: 'include',
                                 headers: {
                                   "Content-Type": "application/json",
-                                  "accept": "application/json",
+                                  "Accept" : "application/json",
+                                  'Access-Control-Allow-Origin': '*',
                                 },
                                 body: JSON.stringify(
                                       {
@@ -74,8 +75,8 @@ function Register() {
       console.log(validationErrors)  
     }catch(err){
       console.log(err)
-      console.log(res)
-      window.location.replace("/Profile")
+      console.log(res.json()  )
+      //window.location.replace("/Profile")
     }
    
     // setValidationErrors(prev => [...prev, ...invalidValues])
