@@ -54,7 +54,7 @@ app.use(flash());
 
 //Setup Routes for SErver to listen to.
 app.use('/api/workouts', require('./routes/workoutRoutes'))
-app.use('/', require('./routes/loginRoutes'))
+app.use('/user', require('./routes/loginRoutes'))
 
 //overrides default error handler
 app.use(errorHandler)

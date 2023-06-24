@@ -46,7 +46,7 @@ function Register() {
     //console.log('click',e.target.elements.firstName.value,e.target.elements.lastName.value, e.target.elements.email.value )
 
     //NEED crendetials: "include" for cookies to be passed to and from browser
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/register`,
+    const res = await fetch(`/user/register`,
                               {
                                 method: 'POST',
                                 mode: 'cors',

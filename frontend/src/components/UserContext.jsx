@@ -8,7 +8,7 @@ const Context = ({children}) => {
   useEffect(()=>{
     console.log('Context Rendered')
     // console.log('use effect context ran',`Fetching from ${process.env.REACT_APP_SERVER_URL}/profile`,'loggin:',user.loggedIn)
-    fetch(`${process.env.REACT_APP_SERVER_URL}/profile`, { credentials: 'include'})
+    fetch(`/user/profile`, { credentials: 'include'})
       .then(res=>{
         //console.log(res.json())})
         return res.json()}) 
