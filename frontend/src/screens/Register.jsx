@@ -75,7 +75,7 @@ function Register() {
       console.log(validationErrors)  
     }catch(err){
       console.log(err)
-      console.log(res.json()  )
+      console.log(res.data)
       //window.location.replace("/Profile")
     }
    
