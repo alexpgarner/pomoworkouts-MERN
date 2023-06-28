@@ -49,13 +49,10 @@ function Register() {
     const res = await fetch(`/user/register`,
                               {
                                 method: 'POST',
-                                mode: 'cors',
-                                redirect: "follow",
                                 credentials: 'include',
                                 headers: {
                                   "Content-Type": "application/json",
                                   "Accept" : "application/json",
-                                  'Access-Control-Allow-Origin': '*',
                                 },
                                 body: JSON.stringify(
                                       {
@@ -67,8 +64,9 @@ function Register() {
                                       email : e.target.elements.email.value
                                       }),
                               })
+    let validationErrors;
     try{                    
-      const validationErrors = await res.json();
+      validationErrors = await res.json();
       setValErrors([...validationErrors])
       console.log(valErrors,typeof valErrors)
       console.log(res.status, valErrors)    
@@ -76,9 +74,11 @@ function Register() {
     }catch(err){
       console.log(err)
       console.log(res.data)
-      //window.location.replace("/Profile")
+      
     }
-   
+    if(validationErrors[0]==="AUTHORIZED"){
+      window.location.replace("/Profile")
+    }
     // setValidationErrors(prev => [...prev, ...invalidValues])
   
   }

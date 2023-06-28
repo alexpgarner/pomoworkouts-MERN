@@ -10,7 +10,7 @@ const Header = ({onStartBTN,startBTN,onFocusDuration,focusDuration,onBreakDurati
   const userContext = useContext(UserContext);
   const logOut = async(e)=>{
     e.preventDefault();
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/logout`,{method: 'GET', credentials: 'include'})//NEED CREDENTIALS TO CLEAR COOKIE
+    const res = await fetch(`/user/logout`,{method: 'GET', credentials: 'include'})//NEED CREDENTIALS TO CLEAR COOKIE
     const data = await res.json();
     
     userContext.setUser(data)

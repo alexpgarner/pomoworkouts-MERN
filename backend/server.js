@@ -14,14 +14,14 @@ const PORT = process.env.PORT || 5000;
 
 const logger = require('morgan')
 
-const cors=require("cors");
-const corsOptions ={
-   origin:['http://localhost:3000','http://localhost:8000/','http://localhost:8000/register','http://localhost:3000/profile'],
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
+// const cors=require("cors");
+// const corsOptions ={
+//    origin:['http://localhost:3000','http://localhost:8000/','http://localhost:8000/register','http://localhost:3000/profile'],
+//    credentials:true,            //access-control-allow-credentials:true
+//    optionSuccessStatus:200,
+// }
 
-app.use(cors(corsOptions)) // Use this after the variable declaration
+// app.use(cors(corsOptions)) // Use this after the variable declaration
 // app.use(cors());//deal with CORS errors?
 
 //Passport config
