@@ -2,14 +2,6 @@ const passport = require("passport");
 const validator = require("validator");
 const User = require("../models/userModel");
 const dotenv = require('dotenv').config();
-// exports.getLogin = (req, res) => {
-//   if (req.user) {
-//     return res.redirect("/profile");
-//   }
-//   res.render("login", {
-//     title: "Login",
-//   });
-// };
 
 exports.postLogin = (req, res, next) => {
   //console.log(req.body)
@@ -22,8 +14,8 @@ exports.postLogin = (req, res, next) => {
     validationErrors.push({ msg: "Password cannot be blank." });
 
   if (validationErrors.length) {
-    req.flash("errors", validationErrors);
-    return res.redirect(`${process.env.CLIENT_URL}`);
+    console.log('Errors',validationErrors)
+    return res.json(validationErrors); //instead of flashing message try returning errors with response
   }
   req.body.email = validator.normalizeEmail(req.body.email, {
     gmail_remove_dots: false,
