@@ -15,13 +15,12 @@ from 'mdb-react-ui-kit';
 import {useState,useEffect} from 'react'
 import {UserContext} from '../components/UserContext'
 import { useContext } from 'react'
-import {Link,Navigate} from 'react-router-dom'
+import {Navigate,useNavigate} from 'react-router-dom'
 function Register() {
-
+  const navigate = useNavigate()
   const userContext = useContext(UserContext);
 
   const [valErrors,setValErrors]=useState([]);
-  const [key, setKey] = useState(0);
   const [firstName,setFirstName] = useState('')
   const [lastName,setLastName] = useState('')
   const [email,setEmail] = useState('')
@@ -29,18 +28,13 @@ function Register() {
   const [confirmPassword,setConfirmPassword] = useState('')
   const [userName,setUserName] = useState('')
 
-  useEffect(()=>{
-    console.log(userContext.user.loggedIn)
-    if(valErrors[0]==='Logged In'){
-      userContext.setUser({loggedIn: true})
-    }
-  },[valErrors])
-  if (userContext.user.loggedIn) {
-    return <Navigate replace to="/profile" />;
-  }else{
-  const onKey=()=>{
-    setKey(prevKey => prevKey + 1)
-  }
+  // useEffect(()=>{
+  //   console.log(userContext.user.loggedIn)
+  //   if(valErrors[0]==='Logged In'){
+  //     userContext.setUser({loggedIn: true})
+  //   }
+  // },[valErrors]) maybe do something with this later so I don't need to page reload to update context after registration.
+
   const onSubmit = async (e) =>{
     e.preventDefault();
     //console.log('click',e.target.elements.firstName.value,e.target.elements.lastName.value, e.target.elements.email.value )
@@ -78,6 +72,7 @@ function Register() {
     }
     if(validationErrors[0]==="AUTHORIZED"){
       window.location.replace("/Profile")
+    //  navigate("/profile"); doesn't work because won't cause userContext to update?
     }
     // setValidationErrors(prev => [...prev, ...invalidValues])
   
@@ -107,6 +102,9 @@ function Register() {
     } 
   }
 
+  if (userContext.user.loggedIn) {
+    return <Navigate to = "/profile"/>;
+  }else{
 
   return (
     <MDBContainer className='my-5' >
