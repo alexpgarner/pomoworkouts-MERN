@@ -35,7 +35,7 @@ exports.postLogin = (req, res, next) => {
         return next(err);
       }
       console.log('logged IN',user,res.getHeaders())
-      req.json("AUTHORIZED");
+      res.json(["AUTHORIZED"]);
       // res.redirect(`${process.env.CLIENT_URL}/profile`);
       // res.redirect(req.session.returnTo || `${process.env.CLIENT_URL}/profile`);
       // res.redirect(`${process.env.CLIENT_URL}/profile`);
