@@ -9,9 +9,9 @@ exports.postLogin = (req, res, next) => {
   console.log(req.body.password,typeof req.body.password)
   const validationErrors = [];
   if (!validator.isEmail(req.body.email))
-    validationErrors.push({ msg: "Please enter a valid email address." });
+    validationErrors.push("Please enter a valid email address.");
   if (validator.isEmpty(req.body.password))
-    validationErrors.push({ msg: "Password cannot be blank." });
+    validationErrors.push("Password cannot be blank.");
 
   if (validationErrors.length) {
     console.log('Errors',validationErrors)
@@ -26,17 +26,17 @@ exports.postLogin = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      console.log('ERROR LOGIN')
-      req.flash("errors", info);
-      return res.redirect(`${process.env.CLIENT_URL}/login`);
+      console.log('ERROR LOGIN',info)
+      return res.json([info.msg]);
+      // return res.redirect(`${process.env.CLIENT_URL}/login`);
     }
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
       console.log('logged IN',user,res.getHeaders())
-      req.flash("success", { msg: "Success! You are logged in." });
-      res.redirect(`${process.env.CLIENT_URL}/profile`);
+      req.json("AUTHORIZED");
+      // res.redirect(`${process.env.CLIENT_URL}/profile`);
       // res.redirect(req.session.returnTo || `${process.env.CLIENT_URL}/profile`);
       // res.redirect(`${process.env.CLIENT_URL}/profile`);
     });
